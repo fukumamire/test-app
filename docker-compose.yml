@@ -32,11 +32,11 @@ services:
     ports:
       - '${FORWARD_DB_PORT:-3306}:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_DATABASE: '${DB_DATABASE}'
-      MYSQL_USER: '${DB_USERNAME}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: mysql
+      MYSQL_DATABASE: test_app
+      MYSQL_USER: sail
+      MYSQL_PASSWORD: password
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
     volumes:
       - 'sail-mysql:/var/lib/mysql'
@@ -59,8 +59,8 @@ services:
     ports:
       - 8080:80
     environment:
-      MYSQL_USERNAME: '${DB_USERNAME}'
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_USERNAME: sail
+      MYSQL_ROOT_PASSWORD: password
       PMA_HOST: mysql
     networks:
       - sail
