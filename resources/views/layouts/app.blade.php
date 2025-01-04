@@ -9,7 +9,10 @@
   <title>{{ config('app.name', 'Laravel') }}</title>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- 独自CSSファイルを読み込む -->
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
+  <!-- 独自CSSファイルを読み込む -->
+  @yield('css')
 </head>
 
 <body>
@@ -33,4 +36,3 @@
 </body>
 
 </html>
-
