@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
   <div class="login-container">
     <h1>新規登録</h1>
     <form method="POST" action="{{ route('register') }}">
@@ -40,6 +40,89 @@
         <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
           {{ __('Already registered?') }}
         </a>
+      </div>
+    </form>
+  </div>
+</x-guest-layout> --}}
+
+
+<x-guest-layout>
+  <div class="register-container">
+    <h1 class="title">新規登録</h1>
+    <form method="POST" action="{{ route('register') }}" class="form-wrapper">
+      @csrf
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name" class="form-label">{{ __('Name') }}</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          :value="old('name')" 
+          required 
+          autofocus 
+          autocomplete="name"
+          class="form-control"
+        >
+        @error('name')
+          <span class="error-message">{{ $message }}</span>
+        @enderror
+      </div>
+
+      <!-- Email Address -->
+      <div class="form-group">
+        <label for="email" class="form-label">{{ __('Email') }}</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          :value="old('email')" 
+          required 
+          autocomplete="username"
+          class="form-control"
+        >
+        @error('email')
+          <span class="error-message">{{ $message }}</span>
+        @enderror
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password" class="form-label">{{ __('Password') }}</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          required 
+          autocomplete="new-password"
+          class="form-control"
+        >
+        @error('password')
+          <span class="error-message">{{ $message }}</span>
+        @enderror
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="password_confirmation" class="form-label">{{ __('Confirm Password') }}</label>
+        <input 
+          type="password" 
+          id="password_confirmation" 
+          name="password_confirmation" 
+          required 
+          autocomplete="new-password"
+          class="form-control"
+        >
+        @error('password_confirmation')
+          <span class="error-message">{{ $message }}</span>
+        @enderror
+      </div>
+
+      <button type="submit" class="btn-submit">{{ __('Register') }}</button>
+
+      <div class="link-container">
+        <a href="{{ route('login') }}" class="link">{{ __('Already registered?') }}</a>
       </div>
     </form>
   </div>

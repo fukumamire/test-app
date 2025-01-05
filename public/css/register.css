@@ -1,61 +1,89 @@
 body {
-  background-color: #ffefd5;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  background-color: #f0f8c3;
+  font-family: Arial, sans-serif;
   color: #ff6b6b;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
-.login-container {
-  background-color: #fff;
+.register-container {
+  background-color: white;
   padding: 40px;
-  border-radius: 20px;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
   text-align: center;
 }
 
-h1 {
-  font-size: 24px; /* タイトルサイズ */
-  margin-bottom: 20px; /* タイトル下の余白 */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .form-group {
-  margin-bottom: 15px; /* フォーム要素間の余白 */
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-input {
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-control {
   width: 100%;
-  padding: 10px 15px;
+  padding: 10px;
   border: 2px solid #ffc0cb;
   border-radius: 25px;
   font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input::placeholder {
-  color: #ffb6c1;
-}
-
-input:focus {
+.form-control:focus {
   outline: none;
   border-color: #ff69b4;
   box-shadow: 0 0 5px rgba(255, 192, 203, 0.5);
 }
 
-.button {
+.error-message {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.btn-submit {
   width: 100%;
   padding: 10px;
   background-color: #ff69b4;
   border: none;
   border-radius: 25px;
-  color: #fff;
+  color: white;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.button:hover {
+.btn-submit:hover {
   background-color: #ff1493;
+}
+
+.link-container {
+  margin-top: 15px;
+}
+
+.link {
+  text-decoration: underline;
+  color: #6366f1;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #4d499f;
 }
