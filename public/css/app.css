@@ -1,5 +1,5 @@
-/* グローバルスタイル */
-body {
+/* グローバルスタイル  便宜作成してみた*/
+/* body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -11,10 +11,10 @@ body {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-}
+} */
 
 /* ヘッダーのスタイル */
-.header {
+/* .header {
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem 0;
@@ -23,15 +23,15 @@ body {
 .header-content {
   font-size: 1.5rem;
   text-align: center;
-}
+} */
 
 /* メインコンテンツ */
-.main-content {
+/* .main-content {
   padding: 2rem 0;
-}
+} */
 
 /* レスポンシブデザイン */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .header-content {
     font-size: 1.2rem;
   }
@@ -39,4 +39,4 @@ body {
   .main-content {
     padding: 1rem;
   }
-}
+} */

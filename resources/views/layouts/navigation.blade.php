@@ -1,4 +1,4 @@
-{{-- <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -97,44 +97,5 @@
             </div>
         </div>
     </div>
-</nav> --}}
-<nav class="navbar">
-  <div class="navbar-container">
-    <div class="navbar-header">
-      <a href="/dashboard" class="navbar-logo">
-        <img src="/path-to-logo/logo.png" alt="Application Logo" class="logo">
-      </a>
-    </div>
-
-    <div class="navbar-links">
-      <a href="/dashboard" class="nav-link active">Dashboard</a>
-    </div>
-
-    <div class="navbar-user">
-      <div class="user-info">
-        <span class="user-name">John Doe</span>
-        <button class="dropdown-toggle">
-          <img src="/path-to-icon/dropdown-icon.svg" alt="Dropdown Icon" class="dropdown-icon">
-        </button>
-      </div>
-      <div class="dropdown-menu">
-        <a href="/profile/edit" class="dropdown-link">Profile</a>
-        <form method="POST" action="/logout" class="logout-form">
-          <button type="submit" class="dropdown-link">Log Out</button>
-        </form>
-      </div>
-    </div>
-
-    <button class="hamburger-menu" onclick="toggleMenu()">
-      <img src="/path-to-icon/menu-icon.svg" alt="Menu Icon" class="menu-icon">
-    </button>
-  </div>
-
-  <div class="responsive-menu hidden" id="responsiveMenu">
-    <a href="/dashboard" class="responsive-link">Dashboard</a>
-    <a href="/profile/edit" class="responsive-link">Profile</a>
-    <form method="POST" action="/logout" class="responsive-form">
-      <button type="submit" class="responsive-link">Log Out</button>
-    </form>
-  </div>
 </nav>
+

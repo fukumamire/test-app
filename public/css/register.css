@@ -1,30 +1,28 @@
 body {
   background-color: #ffefd5;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: "Comic Sans MS", cursive, sans-serif;
   color: #ff6b6b;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0; /* 余白をリセット */
 }
 
-.register-container {
+.login-container {
   background-color: #fff;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 90%; /* 幅を90%に設定 */
-  max-width: 400px; /* 最大幅を400pxに設定 */
 }
 
 h1 {
-  margin-bottom: 20px;
+  font-size: 24px; /* タイトルサイズ */
+  margin-bottom: 20px; /* タイトル下の余白 */
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 15px; /* フォーム要素間の余白 */
 }
 
 input {
@@ -45,7 +43,7 @@ input:focus {
   box-shadow: 0 0 5px rgba(255, 192, 203, 0.5);
 }
 
-button {
+.button {
   width: 100%;
   padding: 10px;
   background-color: #ff69b4;
@@ -58,48 +56,6 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.button:hover {
   background-color: #ff1493;
-}
-
-.error-message {
-  color: #ff6b6b;
-  font-size: 12px;
-}
-
-/* レスポンシブデザインのためのメディアクエリ */
-@media (max-width: 768px) {
-  .register-container {
-    padding: 20px; /* パディングを減らす */
-  }
-
-  h1 {
-    font-size: 24px; /* フォントサイズを調整 */
-  }
-
-  input {
-    font-size: 14px; /* フォントサイズを調整 */
-  }
-
-  button {
-    font-size: 14px; /* フォントサイズを調整 */
-  }
-}
-
-@media (max-width: 480px) {
-  .register-container {
-    padding: 15px; /* パディングをさらに減らす */
-  }
-
-  h1 {
-    font-size: 20px; /* フォントサイズを調整 */
-  }
-
-  input {
-    font-size: 12px; /* フォントサイズを調整 */
-  }
-
-  button {
-    font-size: 12px; /* フォントサイズを調整 */
-  }
 }
