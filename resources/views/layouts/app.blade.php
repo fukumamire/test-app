@@ -14,9 +14,6 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <!-- CSSファイルのリンク -->
-        <link href="{{ asset('css/register.css') }}" rel="stylesheet"> <!-- ここを追加 -->
-
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
