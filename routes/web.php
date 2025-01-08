@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+
+// 投稿に関するルート
+Route::resource('post', PostController::class);
 
 Route::get('/', function () {
     return view('welcome');
