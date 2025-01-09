@@ -28,7 +28,13 @@ class PostController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    //新しいPostインスタンスを作成する
+    $post = new Post();
+    $post->title = $request->title;
+    $post->body = $request->body;
+    $post->user_id = auth()->user()->id;
+    $post->save();
+    return redirect()->route('post.create')->with('message', '投稿を作成しました');
   }
 
   /**
