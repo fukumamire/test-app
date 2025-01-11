@@ -28,6 +28,12 @@ class PostController extends Controller
    */
   public function store(Request $request)
   {
+    $inputs = $request->validate([
+      'title' => 'required|max:255',
+      'body' => 'required|max:1000',
+      'image' => 'image|max:1024'
+    ]);
+    
     //新しいPostインスタンスを作成する
     $post = new Post();
     $post->title = $request->title;
