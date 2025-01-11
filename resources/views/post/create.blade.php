@@ -3,9 +3,10 @@
     <h2 class="font-semibold text-4xl text-gray-800 leading-tight">
       投稿の新規作成
     </h2>
-      @if(session('message'))
+      {{-- @if(session('message'))
         {{session('message')}}
-      @endif
+      @endif --}}
+    <x-message :message="session('message')" />
   </x-slot>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
