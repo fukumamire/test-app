@@ -10,6 +10,7 @@
 
   {{-- 投稿一覧表示用のコード --}}
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {{$user->name}}さん、こんにちは！
     @foreach ($posts as $post)
     <div class="mx-4 sm:p-8">
       <div class="mt-4">
