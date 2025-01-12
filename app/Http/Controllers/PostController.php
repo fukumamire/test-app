@@ -12,7 +12,9 @@ class PostController extends Controller
    */
   public function index()
   {
-    //
+    $posts = Post::all();
+    $user = auth()->user();
+    return view('post.index', compact('posts', 'user'));
   }
 
   /**
@@ -33,12 +35,22 @@ class PostController extends Controller
       'body' => 'required|max:1000',
       'image' => 'image|max:1024'
     ]);
-    
+
     //新しいPostインスタンスを作成する
     $post = new Post();
     $post->title = $request->title;
     $post->body = $request->body;
     $post->user_id = auth()->user()->id;
+
+    if (request('image')) {
+      $name = request()->file('image')->getClientOriginalName();
+      // $originalは元のファイル名として定義
+      $original = $name;
+      // 日時追加
+      $name = date('Ymd_His') . '_' . $original;
+      request()->file('image')->move('storage/images', $name);
+      $post->image = $name;
+    }
     $post->save();
     return redirect()->route('post.create')->with('message', '投稿を作成しました');
   }
