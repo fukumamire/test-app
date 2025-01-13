@@ -60,7 +60,8 @@ class PostController extends Controller
    */
   public function show(Post $post)
   {
-    //
+    // 個別表示ページの表示
+    return view('post.show', compact('post'));
   }
 
   /**
