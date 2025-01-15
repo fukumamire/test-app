@@ -16,6 +16,7 @@
           <div class="mt-4">
             <h1 class="text-lg text-gray-700 font-semibold">
               {{ $post->title }}
+              <a href="{{route('post.edit', $post)}}"><x-primary-button class="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white font-bold py-2 px-4 rounded float-right">編集</x-primary-button></a>
             </h1>
             <hr class="w-full">
             <p class="mt-4 text-gray-600 py-4 whitespace-pre-line">{{$post->body}}</p>
