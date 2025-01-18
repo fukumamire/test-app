@@ -20,4 +20,10 @@ class Post extends Model
     // 一つの投稿が１人に属する
     return $this->belongsTo(User::class);
   }
+
+  public function comments()
+  {
+    // ひとつの投稿が複数のコメントをもつ可能性があるので、commentsと複数形
+    return $this->hasMany(Comment::class);
+  }
 }
