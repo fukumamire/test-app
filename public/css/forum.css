@@ -1,0 +1,13 @@
+.badge {
+  display: inline-block;
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+  /* 要素の内側の余白を設定します。上部と下部に 0.2rem、左右に 0.6rem のスペースが追加 */
+  border-radius: 1rem;
+  /* 要素の角を丸めます。1rem の値は、要素の角がどれだけ丸くなるかを指定します。 */
+  font-size: 0.9rem;
+  text-align: center;
+  white-space: nowrap;
+  /* テキストの折り返しを禁止します。バッジ内のテキストは、改行せずに一行で表示 */
+  background-color: green;
+}

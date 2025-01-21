@@ -24,6 +24,18 @@
             <div class="text-sm font-semibold flex flex-row-reverse">
               <p>{{ $post->user->name }} • {{$post->created_at->diffForHumans()}}</p>
             </div>
+            {{-- 追加部分 コメントのカウント等--}}
+            <hr class="w-full mb-2">{{-- 水平線を描画するための <hr> タグです。クラス w-full は幅を100%に設定し、 mb-2 は下部にマージンを追加 --}}
+              @if ($post->comments->count())
+              <span class="badge"> {{-- badgeについてforum.cssに記載あり --}}
+                返信 {{$post->comments->count()}}件
+              </span>
+              @else
+              <span>コメントはまだありません。</span>
+              @endif
+              <a href="{{route('post.show', $post)}}" style="color:rgb(255, 255, 255);">
+                <x-primary-button class="float-right">コメントする</x-primary-button>
+              </a> 
           </div>
         </div>
       </div>
