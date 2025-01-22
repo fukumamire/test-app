@@ -107,4 +107,11 @@ class PostController extends Controller
     $post->delete();
     return redirect()->route('post.index')->with('message', '投稿を削除しました');
   }
+
+  public function mypost(){
+    //現在ログインしているユーザーID取得
+    $user=auth()->user()->id;
+    $posts = Post::where('user_id', $user)->get();
+    return view('post.mypost', compact('posts'));
+  }
 }
