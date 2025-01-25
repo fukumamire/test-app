@@ -103,15 +103,16 @@ class PostController extends Controller
    */
   public function destroy(Post $post)
   {
-    $post->comments()->delete();//投稿削除の時にコメントも削除
+    $post->comments()->delete(); //投稿削除の時にコメントも削除
     $post->delete();
     return redirect()->route('post.index')->with('message', '投稿を削除しました');
   }
-
-  public function mypost(){
+  // 自分用の投稿一覧
+  public function mypost()
+  {
     //現在ログインしているユーザーID取得
-    $user=auth()->user()->id;
-    $posts = Post::where('user_id', $user)->get();
+    $user = auth()->user()->id;
+    $posts = Post::where('user_id', $user)->orderBy('created_at', 'desc')->get();
     return view('post.mypost', compact('posts'));
   }
 }
