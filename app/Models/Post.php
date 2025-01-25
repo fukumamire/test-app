@@ -21,6 +21,11 @@ class Post extends Model
     return $this->belongsTo(User::class);
   }
 
+  public function followers()
+  {
+    return $this->belongsToMany(User::class);
+  }
+
   public function comments()
   {
     // ひとつの投稿が複数のコメントをもつ可能性があるので、commentsと複数形

@@ -51,6 +51,11 @@ class User extends Authenticatable
     // ひとりのユーザーが複数の投稿を持つ
     return $this->hasMany(Post::class);
   }
+  
+  public function favorites()
+  {
+    return $this->belongsToMany(Post::class);
+  }
 
   public function comments()
   {
