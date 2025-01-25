@@ -115,4 +115,18 @@ class PostController extends Controller
     $posts = Post::where('user_id', $user)->orderBy('created_at', 'desc')->get();
     return view('post.mypost', compact('posts'));
   }
+
+  public function like(Post $post)
+  {
+    $user = auth()->user(); // 認証されたユーザーを取得
+    $isLiked = $user->favorites()->where('post_id', $post->id)->exists(); // いいねが既に存在するかチェック
+
+    if ($isLiked) {
+      $user->favorites()->detach($post); // いいねがあれば削除
+    } else {
+      $user->favorites()->attach($post); // いいねがなければ追加
+    }
+
+    return back();
+  }
 }

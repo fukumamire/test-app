@@ -20,6 +20,10 @@ Route::get('/dashboard', [PostController::class, 'index'])->middleware(['auth', 
 
 //自分の投稿のみ表示
 Route::get('post/mypost', [PostController::class, 'mypost'])->name('post.mypost');
+
+// いいね機能
+Route::post('/post/{post}/like', [PostController::class, 'like'])->name('post.like');
+
 // 投稿に関するルート
 Route::resource('post', PostController::class);
 
