@@ -36,7 +36,7 @@
 
               {{-- いいねボタンとカウント --}}
               <div class="mt-2 flex flex-col sm:flex-row items-start sm:items-center  justify-between">
-                <form action="{{ route('post.like', $post) }}" method="POST" class="mb-2 sm:mb-0">
+                <form action="{{ route('post.like', $post) }}" method="POST" class="mb-2 sm:mb-0 flex items-center">
                   @csrf
                   <button type="submit" class="{{ $post->favorites ->contains(auth()->user()) ? 'bg-red-500 hover:bg-red-700' : 'bg-blue-500 hover:bg-blue-700' }} text-white font-bold py-2 px-4 rounded  flex items-center">
                     {{-- いいね！のアイコン --}}
@@ -45,8 +45,8 @@
                     </svg>
                     {{$post->favorites->contains(auth()->user()) ? 'いいね取り消し' : 'いいね' }}
                   </button>
+                  <span class="ml-2">{{ $post->favorites->count() }} 人がいいねしています</span>
                 </form>
-                <span class="ml-2">{{ $post->favorites->count() }} 人がいいねしています</span>
                 <div class="mt-2 sm:mt-0">
                   <x-primary-button class="flex items-center">
                     {{-- 鉛筆のアイコン --}}
