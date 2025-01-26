@@ -43,11 +43,10 @@
                   </button>
                 </form>
                 <span class="ml-2">{{ $post->favorites->count() }} 人がいいねしています</span>
+                <x-primary-button class="float-right mr-4">
+                <a href="{{route('post.show', $post)}}" class="text-white text-lg">コメントする</a>
+                </x-primary-button>
               </div>
-
-              <x-primary-button class="float-right mr-4">
-                <a href="{{route('post.show', $post)}}" style="color:rgb(255, 255, 255);">コメントする</a>
-              </x-primary-button>
           </div>
         </div>
       </div>
