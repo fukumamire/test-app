@@ -33,7 +33,19 @@
               @else
               <span>コメントはまだありません。</span>
               @endif
-              <x-primary-button class="float-right">
+
+              {{-- いいねボタンとカウント --}}
+              <div class="mt-2">
+                <form action="{{ route('post.like', $post) }}" method="POST">
+                  @csrf
+                  <button type="submit" class="{{ $post->favorites ->contains(auth()->user()) ? 'bg-red-500 hover:bg-red-700' : 'bg-blue-500 hover:bg-blue-700' }} text-white font-bold py-2 px-4 rounded">
+                    {{$post->favorites->contains(auth()->user()) ? 'いいね取り消し' : 'いいね' }}
+                  </button>
+                </form>
+                <span class="ml-2">{{ $post->favorites->count() }} 人がいいねしています</span>
+              </div>
+
+              <x-primary-button class="float-right mr-4">
                 <a href="{{route('post.show', $post)}}" style="color:rgb(255, 255, 255);">コメントする</a>
               </x-primary-button>
           </div>
