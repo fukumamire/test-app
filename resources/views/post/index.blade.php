@@ -9,12 +9,12 @@
   </x-slot>
 
   {{-- 投稿一覧表示用のコード --}}
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-2xl">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-lg sm:text-2xl">
       {{$user->name}}さん、こんにちは！
     @foreach ($posts as $post)
     <div class="mx-4 sm:p-8">
       <div class="mt-4">
-        <div class="bg-white w-full  rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500">
+        <div class="bg-white w-full  rounded-2xl px-6 sm:px-10  py-6 sm:py-8 shadow-lg hover:shadow-2xl transition duration-500">
           <div class="mt-4">
             <h1 class="text-xl text-gray-700 font-semibold hover:underline cursor-pointer">
             <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
@@ -35,8 +35,8 @@
               @endif
 
               {{-- いいねボタンとカウント --}}
-              <div class="mt-2">
-                <form action="{{ route('post.like', $post) }}" method="POST">
+              <div class="mt-2 flex flex-col sm:flex-row items-start sm:items-center  justify-between">
+                <form action="{{ route('post.like', $post) }}" method="POST" class="mb-2 sm:mb-0">
                   @csrf
                   <button type="submit" class="{{ $post->favorites ->contains(auth()->user()) ? 'bg-red-500 hover:bg-red-700' : 'bg-blue-500 hover:bg-blue-700' }} text-white font-bold py-2 px-4 rounded  flex items-center">
                     {{-- いいね！のアイコン --}}
@@ -47,13 +47,15 @@
                   </button>
                 </form>
                 <span class="ml-2">{{ $post->favorites->count() }} 人がいいねしています</span>
-                <x-primary-button class="float-right mr-4">
-                  {{-- 鉛筆のアイコン --}}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6"> 
-                <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                </svg>
-                <a href="{{route('post.show', $post)}}" class="text-white text-lg">コメントする</a>
-                </x-primary-button>
+                <div class="mt-2 sm:mt-0">
+                  <x-primary-button class="flex items-center">
+                    {{-- 鉛筆のアイコン --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6"> 
+                      <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                    </svg>
+                    <a href="{{route('post.show', $post)}}" class="text-white text-lg">コメントする</a>
+                  </x-primary-button>
+                </div>
               </div>
           </div>
         </div>
