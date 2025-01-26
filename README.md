@@ -27,7 +27,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 phpMyAdmin:：http://localhost:8080/
 
 ## 機能一覧
-会員登録、ログイン、ログアウト、
+会員登録、ログイン、ログアウト、いいね機能
 
 
 ## 使用技術（実行環境）

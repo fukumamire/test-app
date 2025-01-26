@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Comment;
 
 class PostController extends Controller
 {
@@ -114,6 +115,13 @@ class PostController extends Controller
     $user = auth()->user()->id;
     $posts = Post::where('user_id', $user)->orderBy('created_at', 'desc')->get();
     return view('post.mypost', compact('posts'));
+  }
+  // コメント投稿
+  public function mycomment()
+  {
+    $user = auth()->user()->id;
+    $comments = Comment::where('user_id', $user)->orderBy('created_at', 'desc')->get();
+    return view('post.mycomment', compact('comments'));
   }
 
   public function like(Post $post)
