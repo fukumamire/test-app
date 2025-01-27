@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-3xl text-gray-800 leading-tight">
-      投稿の一覧
+      コメントした投稿の一覧
     </h2>
     <x-message :message="session('message')" />
 
@@ -9,12 +9,16 @@
 
   {{-- 投稿一覧表示用のコード --}}
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    @if (count($posts) == 0)
+    @if (count($comments) == 0)
       <p class="mt-4 text-xl">
-        あなたはまだ投稿していません。
+        あなたはまだコメントしていません。
       </p>
     @else
-    @foreach ($posts as $post)
+    @foreach ($comments->unique('post_id') as $comment)
+    @php
+    //コメントした投稿
+    $post = $comment->post;
+    @endphp
     <div class="mx-4 sm:p-8">
       <div class="mt-4">
         <div class="bg-white w-full  rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500">
@@ -37,6 +41,9 @@
               <span>コメントはまだありません。</span>
               @endif
               <x-primary-button class="float-right">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6"> 
+                  <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                </svg>
                 <a href="{{route('post.show', $post)}}" style="color:rgb(255, 255, 255);">コメントする</a>
               </x-primary-button>
           </div>

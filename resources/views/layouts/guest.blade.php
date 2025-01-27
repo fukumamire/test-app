@@ -14,22 +14,17 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <!-- CSSファイルのリンク -->
-        <link href="{{ asset('css/register.css') }}" rel="stylesheet"> <!-- ここを追加 -->
-
+        <!-- 特定のページのみスタイルを読み込む -->
+        @if (request()->is('register'))
+        <link href="{{ asset('css/register.css') }}" rel="stylesheet">
+        @endif
+        @if (request()->is('login'))
+        <link href="{{ asset('css/register.css') }}" rel="stylesheet">
+        @endif
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[f0f8c3]">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
-
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
+    <body>
+        <div class="font-sans text-gray-900 antialiased">
+            {{ $slot }}
         </div>
     </body>
 </html>
-

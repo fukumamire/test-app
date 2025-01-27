@@ -14,6 +14,7 @@
 
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <!-- CSSファイルのリンク 　自分で作成した-->
   <link href="{{ asset('css/forum.css') }}" rel="stylesheet">
 
 </head>
