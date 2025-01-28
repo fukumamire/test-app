@@ -11,7 +11,9 @@
           会員募集中。お気軽にひょっこりきてください。
         </p>
         <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in ">
-          <x-primary-button class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-5xl text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">お問い合わせ</x-primary-button>
+          {{-- ボタン設定 --}}
+          <x-primary-button class="btnsetg">お問い合わせ</x-primary-button>
+          <a href="{{route('register')}}"><x-primary-button class="btnsetr">ご登録はこちら</x-primary-button></a>
         </div>
       </div>
       <!-- 右側 -->
