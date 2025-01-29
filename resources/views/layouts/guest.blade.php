@@ -28,6 +28,8 @@
   <div class="font-sans text-gray-900 antialiased">
     <div class="w-full container mx-auto p-6">
       <div class="w-full flex items-center justify-between">
+        {{-- ロゴ追加--}}
+        <img src="{{asset('logo/tiwawa.png')}}"  style="max-width: 80px; max-height: 80px;"/>
         <div class="flex w-1/2 justify-end content-center">
           {{-- ログイン・登録部分 --}}
           @if (Route::has('login'))
