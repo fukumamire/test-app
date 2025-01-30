@@ -26,28 +26,30 @@
 
 <body>
   <div class="font-sans text-gray-900 antialiased">
+    @unless (request()->is('login') || request()->is('register'))
     <div class="w-full container mx-auto p-6">
       <div class="w-full flex items-center justify-between">
         {{-- ロゴ追加--}}
-        <a href="{{route('top')}}"><img src="{{asset('logo/tiwawa.png')}}"  style="max-width: 80px; max-height: 80px;"/></a>
+        <a href="{{route('top')}}"><img src="{{asset('logo/tiwawa.png')}}" style="max-width: 80px; max-height: 80px;" /></a>
         <div class="flex w-1/2 justify-end content-center">
           {{-- ログイン・登録部分 --}}
           @if (Route::has('login'))
           <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
             @auth
-              <a href="{{ url('/post') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">HOME</a>
+            <a href="{{ url('/post') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">HOME</a>
             @else
-              <a href="{{ route('login') }}" class="text-gray-700 dark:text-gray-500 underline font-bold text-xl">ログイン</a>
+            <a href="{{ route('login') }}" class="text-gray-700 dark:text-gray-500 underline font-bold text-xl">ログイン</a>
 
-              @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="ml-4 text-gray-700 dark:text-gray-500 underline font-bold text-xl">登録</a>
-              @endif
+            @if (Route::has('register'))
+            <a href="{{ route('register') }}" class="ml-4 text-gray-700 dark:text-gray-500 underline font-bold text-xl">登録</a>
+            @endif
             @endauth
-          @endif
           </div>
+          @endif
         </div>
       </div>
     </div>
+    @endunless
     <div class="w-full container mx-auto p-6">
       {{ $slot }}
     </div>
