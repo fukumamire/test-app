@@ -5,11 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 
-
-
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('top');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
