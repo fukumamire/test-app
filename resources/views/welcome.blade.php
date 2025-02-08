@@ -12,7 +12,7 @@
         </p>
         <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in ">
           {{-- ボタン設定 --}}
-          <x-primary-button class="btnsetg">お問い合わせ</x-primary-button>
+          <a href="{{route('contact.create')}}"><x-primary-button class="btnsetg">お問い合わせ</x-primary-button></a>
           <a href="{{route('register')}}"><x-primary-button class="btnsetr">ご登録はこちら</x-primary-button></a>
         </div>
       </div>
@@ -27,7 +27,7 @@
       </div>
       <!-- フッタ -->
       <div class="w-full pt-10 pb-6 text-sm md:text-left fade-in">
-        <p class="text-gray-500 text-center">@2022 Laravelのサンプル</p>
+        <p class="text-gray-500 text-center">@2025 Laravelのサンプル</p>
       </div>
     </div>
   </div>
