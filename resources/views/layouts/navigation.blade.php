@@ -7,7 +7,6 @@
         <div class="shrink-0 flex items-center animate-bounce">
           <a href="{{ route('post.index') }}">
             <img src="{{asset('logo/tiwawa.png')}}" style="max-height:50px;">
-            {{-- <x-application-logo class="block h-9 w-auto fill-current text-gray-800" /> --}}
           </a>
         </div>
 
@@ -25,9 +24,11 @@
           <x-nav-link :href="route('post.mycomment')" :active="request()->routeIs('post.mycomment')">
             コメントした投稿
           </x-nav-link>
+          @can('admin'){{-- adminのRoleがあるユーザーの場合だけ、「ユーザー一覧」メニューが表示 --}}
           <x-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
             ユーザー一覧
           </x-nav-link>
+          @endcan
         </div>
       </div>
 
@@ -93,9 +94,11 @@
       <x-responsive-nav-link :href="route('post.mycomment')" :active="request()->routeIs('post.mycomment')">
         コメントした投稿
       </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
+      @can(admin)
+      <x-responsive-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
         ユーザー一覧
-        </x-responsive-nav-link>
+      </x-responsive-nav-link>
+      @endcan
     </div>
 
     <!-- Responsive Settings Options -->
