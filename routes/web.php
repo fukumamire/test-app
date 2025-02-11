@@ -34,7 +34,7 @@ Route::post('post/comment/store', [CommentController::class, 'store'])->name('co
 Route::middleware(['auth', 'can:admin'])->group(
   function () {
     // ユーザー一覧
-  Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
   }
 );
 
