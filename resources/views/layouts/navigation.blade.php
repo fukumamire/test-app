@@ -12,7 +12,7 @@
 
         <!-- Navigation Links -->
         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-          <x-nav-link :href="route('post.index')" :active="request()->routeIs('post.index')">
+          <x-nav-link :href="route('post.index')" :active="request()->routeIs('post.index')" >
             HOME
           </x-nav-link>
           <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
@@ -94,7 +94,7 @@
       <x-responsive-nav-link :href="route('post.mycomment')" :active="request()->routeIs('post.mycomment')">
         コメントした投稿
       </x-responsive-nav-link>
-      @can(admin)
+      @can('admin')
       <x-responsive-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
         ユーザー一覧
       </x-responsive-nav-link>
