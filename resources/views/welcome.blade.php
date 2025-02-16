@@ -3,7 +3,7 @@
     <div class="container mx-auto pt-10 md:pt-18 px-6 lg:px-12 max-w-full flex flex-wrap flex-col md:flex-row items-center bg-yellow-50">
       <!-- 左側 -->
       <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden ">
-        <h1 class="my-4 text-3xl md:text-7xl text-green-800 font-bold font-mono leading-tight text-center md:text-left slide-in-bottom-h1">動物の魅力を伝える憩いの場</h1>
+        <h1 class="my-4 text-3xl md:text-7xl text-green-800 font-bold font-mono leading-tight text-center md:text-left slide-in-bottom-h1">動物の魅力を伝えるペット憩いの場</h1>
         <p class="leading-normal text-base md:text-5xl mb-8 text-center md:text-left slide-in-bottom-subtitle">
           仕事や勉強の合間に、憩いの場としてペットの魅力を発信しよう～　もちろん動物好きの方もウェルカム♪
         </p>
