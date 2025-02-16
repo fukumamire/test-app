@@ -21,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
   protected $fillable = [
     'name',
     'email',
+    'avatar',
     'password',
   ];
 
@@ -52,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
     // ひとりのユーザーが複数の投稿を持つ
     return $this->hasMany(Post::class);
   }
-  
+
   public function favorites()
   {
     return $this->belongsToMany(Post::class);
