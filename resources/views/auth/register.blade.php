@@ -45,16 +45,14 @@
   </div>
 </x-guest-layout> --}}
 <x-guest-layout>
-  {{-- ★追加部分 --}}
   <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
     <a href="/">
       <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
     </a>
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-      {{-- 追加ここまで --}}
+    <div class="register-body">
       <div class="register-container">
         <h1 class="title">新規登録</h1>
-        <form method="POST" action="{{ route('register') }}" class="form-wrapper">
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" class="form-wrapper">
           @csrf
 
           <!-- Name -->
@@ -73,6 +71,13 @@
             @error('email')
             <span class="error-message">{{ $message }}</span>
             @enderror
+          </div>
+
+          <!-- Avatar -->
+          <div class="form-group">
+            <x-input-label for="avatar" :value="__('プロフィール画像（任意・1MBまで）')" />
+
+            <x-text-input id="avatar" class="block mt-1 w-full rounded-none" type="file" name="avatar" :value="old('avatar')" />
           </div>
 
           <!-- Password -->
@@ -99,7 +104,6 @@
             <a href="{{ route('login') }}" class="link">{{ __('Already registered?') }}</a>
           </div>
         </form>
-        {{-- ★</div>を２つ追加 --}}
       </div>
     </div>
   </div>

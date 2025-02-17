@@ -53,8 +53,10 @@ class RegisteredUserController extends Controller
     }
 
     $user = User::create($attr);
-    
+
     event(new Registered($user));
+    // 役割付与
+    $user->roles()->attach(2);
 
     Auth::login($user);
 
