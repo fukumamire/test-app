@@ -189,6 +189,7 @@ return [
     'amount' => '額',
     'area' => 'エリア',
     'available' => '利用可能',
+    'avatar' => 'アバターまたはアイコン',
     'birthday' => '誕生日',
     'body' => '本文',
     'city' => '市',

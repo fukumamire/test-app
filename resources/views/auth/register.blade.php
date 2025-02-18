@@ -78,6 +78,10 @@
             <x-input-label for="avatar" :value="__('プロフィール画像（任意・1MBまで）')" />
 
             <x-text-input id="avatar" class="block mt-1 w-full rounded-none" type="file" name="avatar" :value="old('avatar')" />
+
+            @error('avatar')
+              <span class="error-message">{{ $message }}</span>
+            @enderror
           </div>
 
           <!-- Password -->
