@@ -19,31 +19,47 @@
           <div class="mt-4">
             <div class="flex">
               <div class="rounded-full w-12 h-12">
-                {{-- アバター表示 --}}
-                {{-- @if (isset($post->user->avatar) && Storage::disk('public')->exists('avatar/' . $post->user->avatar)) --}}
-                {{-- アバター画像が存在する場合 --}}
-                  {{-- <img src="{{ asset($post->user->avatar) }}" alt="avatar" class="avatar">
-                @else --}}
-                    {{-- アバターが無い場合はデフォルト画像 --}}
-                  {{-- <img src="{{ asset('storage/avatar/user_default.jpg') }}" alt="default avatar" class="avatar">
-                @endif --}}
-
                 @php
+                  // アバターのパスを正しく設定する
+                  if (isset($post->user->avatar) && str_starts_with($post->user->avatar, 'storage/avatar/')) {
+                      $avatarPath = substr($post->user->avatar, strlen('storage/avatar/'));
+                  } else {
+                      $avatarPath = $post->user->avatar ? 'avatar/' . $post->user->avatar : 'avatar/user_default.jpg';
+                  }
+                  Log::debug('Corrected Avatar path: ' . $avatarPath);
+                @endphp
+                
+                @if (file_exists(public_path('storage/avatar/' . $avatarPath)))
+        <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="avatar">
+    @else
+        <img src="{{ asset('storage/avatar/user_default.jpg') }}" alt="avatar" class="avatar">
+    @endif
+
+                {{-- <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="avatar"> --}}
+              {{-- @php --}}
+                  // アバターのパスを正しく設定する
+                  // if (isset($post->user->avatar) && !empty($post->user->avatar)) {
+                  //     if (str_starts_with($post->user->avatar, 'storage/avatar/')) {
+                  //         $avatarPath = substr($post->user->avatar, strlen('storage/avatar/'));
+                  //     } else {
+                  //         $avatarPath = 'avatar/' . $post->user->avatar;
+                  //     }
+                  // } else {
+                      // アバターが存在しない場合はデフォルト画像を使用
+                //       $avatarPath = 'avatar/user_default.jpg';
+                //   }
+                //   Log::debug('Corrected Avatar path: ' . $avatarPath);
+                // @endphp
+
+                {{-- <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="avatar">
+                  <img src="{{asset('storage/avatar/'. ($post->user->avatar??'user_default.jpg'))}}"> --}}
+
+                {{-- @php
     $avatarPath = $post->user->avatar ? 'avatar/' . $post->user->avatar : 'avatar/user_default.jpg';
     Log::debug('Avatar path: ' . $avatarPath);
 @endphp
 
-<img src="{{ asset('storage/' . $avatarPath) }}" alt="avatar" class="avatar">
-
-{{-- @php
-    $avatarPath = $post->user->avatar ? 'storage/avatar/' . $post->user->avatar : 'storage/avatar/user_default.jpg';
-    Log::debug('Avatar path: ' . $avatarPath);
-@endphp --}}
-
-{{-- <img src="{{ asset($avatarPath) }}" alt="avatar" class="avatar"> --}}
-
-                {{-- <img src="{{ asset($post->user->avatar ?? 'storage/avatar/user_default.jpg') }}" alt="avatar" class="avatar"> --}}
-                {{-- <img src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}" > --}}
+<img src="{{ asset('storage/' . $avatarPath) }}" alt="avatar" class="avatar"> --}}
               </div>
               <h1 class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-4">
                 <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
