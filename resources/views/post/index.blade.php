@@ -20,7 +20,30 @@
             <div class="flex">
               <div class="rounded-full w-12 h-12">
                 {{-- アバター表示 --}}
-                <img src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}">
+                {{-- @if (isset($post->user->avatar) && Storage::disk('public')->exists('avatar/' . $post->user->avatar)) --}}
+                {{-- アバター画像が存在する場合 --}}
+                  {{-- <img src="{{ asset($post->user->avatar) }}" alt="avatar" class="avatar">
+                @else --}}
+                    {{-- アバターが無い場合はデフォルト画像 --}}
+                  {{-- <img src="{{ asset('storage/avatar/user_default.jpg') }}" alt="default avatar" class="avatar">
+                @endif --}}
+
+                @php
+    $avatarPath = $post->user->avatar ? 'avatar/' . $post->user->avatar : 'avatar/user_default.jpg';
+    Log::debug('Avatar path: ' . $avatarPath);
+@endphp
+
+<img src="{{ asset('storage/' . $avatarPath) }}" alt="avatar" class="avatar">
+
+{{-- @php
+    $avatarPath = $post->user->avatar ? 'storage/avatar/' . $post->user->avatar : 'storage/avatar/user_default.jpg';
+    Log::debug('Avatar path: ' . $avatarPath);
+@endphp --}}
+
+{{-- <img src="{{ asset($avatarPath) }}" alt="avatar" class="avatar"> --}}
+
+                {{-- <img src="{{ asset($post->user->avatar ?? 'storage/avatar/user_default.jpg') }}" alt="avatar" class="avatar"> --}}
+                {{-- <img src="{{asset('storage/avatar/'.($post->user->avatar??'user_default.jpg'))}}" > --}}
               </div>
               <h1 class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-4">
                 <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>

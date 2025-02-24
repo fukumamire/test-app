@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -32,7 +33,7 @@ class RegisteredUserController extends Controller
     $request->validate([
       'name' => ['required', 'string', 'max:255'],
       'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-      'avatar' => ['image', 'max:1024'],
+      'avatar' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:1024'],
       'password' => ['required', 'confirmed', Rules\Password::defaults()],
     ]);
 
@@ -44,12 +45,15 @@ class RegisteredUserController extends Controller
     ];
 
     //avatarの保存
-    if (request()->hasFile('avatar')) {
-      $name = request()->file('avatar')->getClientOriginalName();
+    if ($request->hasFile('avatar')) {
+      $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
-      request()->file('avatar')->storeAs('public/avatar', $avatar);
-      //avatarファイル名をデータに追加
-      $attr['avatar'] = $avatar;
+      $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public'); // 'public' ディスクを指定
+      // $path = $request->file('avatar')->storeAs('public/avatar', $avatar);
+      $attr['avatar'] = 'storage/avatar/' . $avatar; // パスを保存
+
+      // 保存されたフルパスを確認するためのログ
+      Log::debug('Avatar saved at: ' . $path);
     }
 
     $user = User::create($attr);
