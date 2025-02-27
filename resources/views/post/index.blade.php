@@ -30,48 +30,16 @@
                 @endphp
                 
                 @if (file_exists(public_path('storage/avatar/' . $avatarPath)))
-        <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="avatar">
-    @else
-        <img src="{{ asset('storage/avatar/user_default.jpg') }}" alt="avatar" class="avatar">
-    @endif
-
-                {{-- <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="avatar"> --}}
-              {{-- @php --}}
-                  // アバターのパスを正しく設定する
-                  // if (isset($post->user->avatar) && !empty($post->user->avatar)) {
-                  //     if (str_starts_with($post->user->avatar, 'storage/avatar/')) {
-                  //         $avatarPath = substr($post->user->avatar, strlen('storage/avatar/'));
-                  //     } else {
-                  //         $avatarPath = 'avatar/' . $post->user->avatar;
-                  //     }
-                  // } else {
-                      // アバターが存在しない場合はデフォルト画像を使用
-                //       $avatarPath = 'avatar/user_default.jpg';
-                //   }
-                //   Log::debug('Corrected Avatar path: ' . $avatarPath);
-                // @endphp
-
-                {{-- <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="avatar">
-                  <img src="{{asset('storage/avatar/'. ($post->user->avatar??'user_default.jpg'))}}"> --}}
-
-                {{-- @php
-    $avatarPath = $post->user->avatar ? 'avatar/' . $post->user->avatar : 'avatar/user_default.jpg';
-    Log::debug('Avatar path: ' . $avatarPath);
-@endphp
-
-<img src="{{ asset('storage/' . $avatarPath) }}" alt="avatar" class="avatar"> --}}
+                  <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="avatar">
+                @else
+                  <img src="{{ asset('storage/avatar/user_default.jpg') }}" alt="avatar" class="avatar">
+                @endif
               </div>
               <h1 class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-4">
                 <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
               </h1>
             </div>
             {{-- 修正部分ここまで --}}
-        {{-- <div class="bg-white w-full  rounded-2xl px-6 sm:px-10  py-6 sm:py-8 shadow-lg hover:shadow-2xl transition duration-500">
-          <div class="mt-4">
-            <h1 class="text-xl text-gray-700 font-semibold hover:underline cursor-pointer">
-            <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
-            </h1> --}}
-
             <hr class="w-full">
             <p class="mt-4 text-gray-600 py-4">{{Str::limit($post->body, 50, '...')}} </p>
             <div class="text-sm font-semibold flex flex-row-reverse">

@@ -49,7 +49,6 @@ class RegisteredUserController extends Controller
       $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
       $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public'); // 'public' ディスクを指定
-      // $path = $request->file('avatar')->storeAs('public/avatar', $avatar);
       $attr['avatar'] = 'storage/avatar/' . $avatar; // パスを保存
 
       // 保存されたフルパスを確認するためのログ
@@ -63,6 +62,10 @@ class RegisteredUserController extends Controller
     $user->roles()->attach(2);
 
     Auth::login($user);
+
+    if (!$user->hasVerifiedEmail()) {
+      return redirect()->route('verification.notice');
+    }
 
     return redirect(route('dashboard', absolute: false));
   }
