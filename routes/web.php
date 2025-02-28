@@ -32,10 +32,7 @@ Route::middleware(['verified'])->group(function () {
   Route::post('/post/{post}/like', [PostController::class, 'like'])->name('post.like');
 
   // 投稿に関するルート
-  Route::resource(
-    'post',
-    PostController::class
-  );
+  Route::resource('post',PostController::class);
 
   //投稿コメント　保存
   Route::post('post/comment/store', [CommentController::class, 'store'])->name('comment.store');
