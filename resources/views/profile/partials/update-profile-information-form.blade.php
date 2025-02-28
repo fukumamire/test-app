@@ -49,19 +49,22 @@
     {{-- アバター更新用に追加 --}}
     <div>
       <x-input-label for="avatar" :value="__('プロフィール画像（任意・1MBまで）')" />
-      <div class="rounded-full w-36">
       @php
-        // アバターのパスを正しく設定する
-        $avatarPath = $user->avatar ?? 'user_default.jpg';
+      // アバターのパスを確認して不要な部分を省く
+      $avatarPath = $user->avatar ? (str_starts_with($user->avatar, 'storage/avatar/')
+      ? substr($user->avatar, strlen('storage/'))
+      : $user->avatar)
+      : 'avatar/user_default.jpg';
       @endphp
-    
-      @if (file_exists(public_path('storage/avatar/' . $avatarPath)))
-        <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="avatar">
-      @else
+
+      <div class="rounded-full w-36">
+        @if (file_exists(public_path('storage/' . $avatarPath)))
+        <img src="{{ asset('storage/' . $avatarPath) }}" alt="avatar" class="avatar">
+        @else
         <img src="{{ asset('storage/avatar/user_default.jpg') }}" alt="avatar" class="avatar">
-      @endif
-        {{-- <img src="{{asset('storage/avatar/'.($user->avatar??'user_default.jpg'))}}"> --}}
+        @endif
       </div>
+
       <x-text-input id="avatar" name="avatar" type="file" class="mt-1 block w-full" :value="old('avatar')" />
       <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
     </div>
