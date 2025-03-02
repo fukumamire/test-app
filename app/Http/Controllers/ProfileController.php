@@ -47,24 +47,31 @@ class ProfileController extends Controller
     // アバター画像の保存
     if ($request->hasFile('avatar')) {
       $user = User::find(auth()->user()->id);
+      $oldAvatar = $user->avatar;
+
       // 古いアバターを削除（デフォルト画像を除く）
-      if ($user->avatar && $user->avatar !== 'storage/avatar/user_default.jpg') {
-        $oldAvatarPath = str_replace('storage/', 'public/', $user->avatar);
-        if (Storage::exists($oldAvatarPath)) {
-          Storage::delete($oldAvatarPath);
+      if ($oldAvatar && $oldAvatar !== 'storage/avatar/user_default.jpg') {
+        $oldAvatarPath = str_replace('storage/', 'public/', $oldAvatar);
+        Log::debug('削除対象のアバターのパス: ' . $oldAvatarPath);
+
+        if (Storage::disk('public')->exists(str_replace('public/', '', $oldAvatarPath))) {
+          Storage::disk('public')->delete(str_replace('public/', '', $oldAvatarPath));
+          Log::debug('古いアバターを削除しました。');
+        } else {
+          Log::debug('古いアバターが見つかりませんでした。');
         }
       }
       // 新しいアバターを保存
       $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
       $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
-      $request->user()->avatar = 'storage/' . $path;
+      $user->avatar = 'storage/' . $path;
 
       Log::debug('新しいアバターを保存しました: ' . $path);
     }
 
     // 変更を保存
-    $request->user()->save();
+    $user->save();
 
     return Redirect::route('profile.edit')->with('status', 'プロフィールが更新されました。');
   }
