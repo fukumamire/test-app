@@ -49,27 +49,28 @@ class ProfileController extends Controller
       $user->email_verified_at = null;
     }
 
-    // アバター画像の保存
+    // アバター画像の保存と古いアバターの削除
     if ($request->hasFile('avatar')) {
       $oldAvatar = $user->avatar;
 
       // 古いアバターを削除（デフォルト画像を除く）
       if ($oldAvatar && str_starts_with($oldAvatar, 'storage/avatar/') && $oldAvatar !== 'storage/avatar/user_default.jpg') {
-        $oldAvatarPath = str_replace('storage/', '', $oldAvatar);
+        $oldAvatarPath = str_replace('storage/', '', $oldAvatar); // 'storage/' を除外
         Log::debug('削除対象のアバターのパス: ' . $oldAvatarPath);
-        // 古いアバターの存在確認と削除
-        if (Storage::disk('public')->exists($oldAvatarPath)) {
+
+        if (Storage::disk('public')->exists($oldAvatarPath)) { // ディスクを明示
           Storage::disk('public')->delete($oldAvatarPath);
           Log::debug('古いアバターを削除しました。');
         } else {
           Log::debug('古いアバターが見つかりませんでした。');
         }
       }
+
       // 新しいアバターを保存
       $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
-      $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
-      $user->avatar = 'storage/' . $path;
+      $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public'); // 'public' ディスクを明示
+      $user->avatar = 'storage/avatar/' . $avatar;
 
       Log::debug('新しいアバターを保存しました: ' . $path);
     }
