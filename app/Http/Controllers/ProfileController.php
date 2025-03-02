@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -42,16 +43,25 @@ class ProfileController extends Controller
       $request->user()->sendEmailVerificationNotification();
       $request->user()->email_verified_at = null;
     }
+
     // アバター画像の保存
     if ($request->hasFile('avatar')) {
+      $user = User::find(auth()->user()->id);
+      // 古いアバターを削除（デフォルト画像を除く）
+      if ($user->avatar && $user->avatar !== 'storage/avatar/user_default.jpg') {
+        $oldAvatarPath = str_replace('storage/', 'public/', $user->avatar);
+        if (Storage::exists($oldAvatarPath)) {
+          Storage::delete($oldAvatarPath);
+        }
+      }
+      // 新しいアバターを保存
       $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
       $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
       $request->user()->avatar = 'storage/' . $path;
 
-      Log::debug('Avatar saved at: ' . $path);
+      Log::debug('新しいアバターを保存しました: ' . $path);
     }
-
 
     // 変更を保存
     $request->user()->save();
