@@ -32,15 +32,20 @@ class ProfileController extends Controller
    */
   public function update(ProfileUpdateRequest $request): RedirectResponse
   {
+    //  fill() メソッドは、モデルの属性を一度に設定するためのメソッドです。引数として与えられた配列のキーと値を使って、モデルのプロパティを更新
     $request->user()->fill($request->validated());
 
+    // メールアドレスが変更された場合、メール確認日時をリセット
     if ($request->user()->isDirty('email')) {
+      // 追記　メールアドレスを変更した時点で、すぐに認証用メールを送信するためのコードコード
+      $request->user()->sendEmailVerificationNotification();
       $request->user()->email_verified_at = null;
     }
 
+    // 変更を保存
     $request->user()->save();
 
-    return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    return Redirect::route('profile.edit')->with('status', 'プロフィールが更新されました。');
   }
 
   /**
