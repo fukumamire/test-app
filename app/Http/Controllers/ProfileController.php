@@ -34,19 +34,19 @@ class ProfileController extends Controller
    */
   public function update(ProfileUpdateRequest $request): RedirectResponse
   {
+    $user = User::find(auth()->user()->id);
     //  fill() メソッドは、モデルの属性を一度に設定するためのメソッドです。引数として与えられた配列のキーと値を使って、モデルのプロパティを更新
-    $request->user()->fill($request->validated());
+    $user->fill($request->validated());
 
     // メールアドレスが変更された場合、メール確認日時をリセット
-    if ($request->user()->isDirty('email')) {
+    if ($user->isDirty('email')) {
       // 追記　メールアドレスを変更した時点で、すぐに認証用メールを送信するためのコードコード
-      $request->user()->sendEmailVerificationNotification();
-      $request->user()->email_verified_at = null;
+      $user->sendEmailVerificationNotification();
+      $user->email_verified_at = null;
     }
 
     // アバター画像の保存
     if ($request->hasFile('avatar')) {
-      $user = User::find(auth()->user()->id);
       $oldAvatar = $user->avatar;
 
       // 古いアバターを削除（デフォルト画像を除く）
