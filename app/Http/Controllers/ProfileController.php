@@ -34,7 +34,6 @@ class ProfileController extends Controller
    */
   public function update(ProfileUpdateRequest $request): RedirectResponse
   {
-    // $user = User::find(auth()->user()->id);
     $user = auth()->user();
     //  fill() メソッドは、モデルの属性を一度に設定するためのメソッドです。引数として与えられた配列のキーと値を使って、モデルのプロパティを更新
     $user->fill($request->validated());
@@ -56,16 +55,25 @@ class ProfileController extends Controller
 
       // 古いアバターを削除（デフォルト画像を除く）
       if ($oldAvatar && $oldAvatar !== 'storage/avatar/user_default.jpg') {
+        Log::debug('古いアバターのパス: ' . $oldAvatar);
         $oldAvatarPath = str_replace('storage/', 'public/', $oldAvatar);
         Log::debug('削除対象のアバターのパス: ' . $oldAvatarPath);
-
-        if (Storage::disk('public')->exists(str_replace('public/', '', $oldAvatarPath))) {
-          Storage::disk('public')->delete(str_replace('public/', '', $oldAvatarPath));
+        // 古いアバターの存在確認と削除
+        if (Storage::disk('public')->exists($oldAvatarPath)) {
+          Storage::disk('public')->delete($oldAvatarPath);
           Log::debug('古いアバターを削除しました。');
         } else {
           Log::debug('古いアバターが見つかりませんでした。');
         }
       }
+
+      //   if (Storage::disk('public')->exists(str_replace('public/', '', $oldAvatarPath))) {
+      //     Storage::disk('public')->delete(str_replace('public/', '', $oldAvatarPath));
+      //     Log::debug('古いアバターを削除しました。');
+      //   } else {
+      //     Log::debug('古いアバターが見つかりませんでした。');
+      //   }
+      // }
       // 新しいアバターを保存
       $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
