@@ -41,6 +41,14 @@ class ProfileController extends Controller
       $request->user()->sendEmailVerificationNotification();
       $request->user()->email_verified_at = null;
     }
+    // アバター画像の保存
+    if ($request->validated('avatar')) {
+      $name = request()->file('avatar')->getClientOriginalName();
+      $avatar = date('Ymd_His') . '_' . $name;
+      request()->file('avatar')->storeAs('public/avatar', $avatar);
+      $request->user()->avatar = $avatar;
+    }
+
 
     // 変更を保存
     $request->user()->save();
