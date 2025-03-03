@@ -35,44 +35,47 @@ class ProfileController extends Controller
   public function update(ProfileUpdateRequest $request): RedirectResponse
   {
     $user = auth()->user();
-    //  fill() メソッドは、モデルの属性を一度に設定するためのメソッドです。引数として与えられた配列のキーと値を使って、モデルのプロパティを更新
-    $user->fill($request->validated());
 
-    // メールアドレスが変更された場合、メール確認日時をリセット
+    // 「avatar」フィールドを除外してユーザー情報を更新
+    $user->fill($request->except('avatar'));
+
+    // メールアドレスが変更された場合の処理
     if ($user->isDirty('email')) {
-      // メールアドレスが未確認の場合、確認画面にリダイレクト
       if (!$user->hasVerifiedEmail()) {
-        return redirect()->route('auth.verify-email');  // 直接ビューに遷移
+        return redirect()->route('auth.verify-email');
       }
-      // 追記　メールアドレスを変更した時点で、すぐに認証用メールを送信するためのコードコード
       $user->sendEmailVerificationNotification();
       $user->email_verified_at = null;
     }
 
     // アバター画像の保存と古いアバターの削除
     if ($request->hasFile('avatar')) {
-      $oldAvatar = $user->avatar;
+      // 古いアバターのパスを、アップロード前の元の値で取得
+      $oldAvatar = $user->getOriginal('avatar');
 
-      // 古いアバターを削除（デフォルト画像を除く）
-      if ($oldAvatar && str_starts_with($oldAvatar, 'storage/avatar/') && $oldAvatar !== 'storage/avatar/user_default.jpg') {
-        $oldAvatarPath = str_replace('storage/', '', $oldAvatar); // 'storage/' を除外
-        Log::debug('削除対象のアバターのパス: ' . $oldAvatarPath);
+      // 古いアバターが登録されていて、かつデフォルト画像でない場合のみ削除
+      if ($oldAvatar && $oldAvatar !== 'storage/avatar/user_default.jpg') {
+        // 「storage/」を除いて、publicディスク上のパス（例："avatar/xxx.png"）に変換
+        $oldAvatarPath = str_replace('storage/', '', $oldAvatar);
+        Log::debug('削除予定のアバターのパス: ' . $oldAvatarPath);
 
-        if (Storage::disk('public')->exists($oldAvatarPath)) { // ディスクを明示
+        if (Storage::disk('public')->exists($oldAvatarPath)) {
           Storage::disk('public')->delete($oldAvatarPath);
           Log::debug('古いアバターを削除しました。');
         } else {
-          Log::debug('古いアバターが見つかりませんでした。');
+          Log::debug('古いアバターが見つかりませんでした: ' . $oldAvatarPath);
         }
       }
 
       // 新しいアバターを保存
       $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
-      $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public'); // 'public' ディスクを明示
+      // 保存先は "storage/app/public/avatar/xxx.png" になる
+      $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
+      // ブラウザからは "storage/avatar/xxx.png" でアクセス可能
       $user->avatar = 'storage/avatar/' . $avatar;
 
-      Log::debug('新しいアバターを保存しました: ' . $path);
+      Log::debug('新しいアバターを保存しました: ' . $user->avatar);
     }
 
     // 変更を保存
@@ -80,6 +83,7 @@ class ProfileController extends Controller
 
     return Redirect::route('profile.edit')->with('status', 'プロフィールが更新されました。');
   }
+
 
   /**
    * Delete the user's account.
