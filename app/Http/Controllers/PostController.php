@@ -113,11 +113,21 @@ class PostController extends Controller
    */
   public function destroy(Request $request, Post $post)
   {
+    // ユーザーが削除権限を持っているか確認
     if ($request->user()->cannot('delete', $post)) {
       abort(403);
     }
 
     $post->comments()->delete(); //投稿削除の時にコメントも削除
+
+    // 画像ファイルを削除
+    if ($post->image) {
+      $imagePath = public_path('storage/images/' . $post->image);
+      if (file_exists($imagePath)) {
+        unlink($imagePath); // 画像ファイルを削除
+      }
+    }
+
     $post->delete();
     return redirect()->route('post.index')->with('message', '投稿を削除しました');
   }
