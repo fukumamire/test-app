@@ -42,10 +42,12 @@ Route::middleware(['verified'])->group(function () {
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
   //admin権限がある場合
-  Route::middleware(['can:admin'])->group(
-    function () {
+  Route::middleware(['can:admin'])->group(function () {
       // ユーザー一覧
       Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
+      Route::get('/profile/adedit/{user}', [ProfileController::class, 'adedit'])->name('profile.adedit');
+      
+      Route::patch('/profile/adupdate/{user}', [ProfileController::class, 'adupdate'])->name('profile.adupdate');
     }
   );
 });

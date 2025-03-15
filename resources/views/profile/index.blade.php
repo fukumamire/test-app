@@ -13,7 +13,6 @@
         <tr class="bg-green-600">
           <th class="p-3 text-left text-white">＃</th>
           <th class="p-3 text-left text-white">名前</th>
-          {{-- <th class="p-3 text-left text-white">Email</th> --}}
           <th class="p-3 text-left text-white flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 mr-2">
               <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
@@ -21,13 +20,36 @@
             </svg>
             Email
           </th>
+          <th class="p-3 text-left text-white">アバター</th>
+          <th class="p-3 text-left text-white">編集</th>
         </tr>
         @foreach($users as $user)
         <tr class="bg-white">
           <td class="border-gray-light border hover:bg-gray-100 p-3">{{$user->id}}</td>
           <td class="border-gray-light border hover:bg-gray-100 p-3">{{$user->name}}</td>
           <td class="border-gray-light border hover:bg-gray-100 p-3">{{$user->email}}</td>
-        </tr>
+          <td class="border-gray-light border hover:bg-gray-100 p-3">
+            <div class="rounded-full w-12 h-12 overflow-hidden"> <!-- サイズを指定 -->
+            @php
+                // アバターのパスを正しく設定
+                if (isset($user->avatar) && str_starts_with($user->avatar, 'storage/avatar/')) {
+                    $avatarPath = substr($user->avatar, strlen('storage/avatar/'));
+                } else {
+                    $avatarPath = $user->avatar ? 'avatar/' . $user->avatar : 'avatar/user_default.jpg';
+                }
+              @endphp
+
+              @if (file_exists(public_path('storage/avatar/' . $avatarPath)))
+                <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="rounded-full w-full h-full">
+              @else
+                <img src="{{ asset('storage/avatar/user_default.jpg') }}" alt="avatar" class="rounded-full w-full h-full">
+              @endif
+            </div>
+          </td>
+          <td class="border-gray-light border hover:bg-gray-100 p-3">
+            <a href="{{route('profile.adedit', $user)}}"><x-primary-button class="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white font-bold py-2 px-4 rounded">編集</x-primary-button></a>
+          </td>
+        </tr>  
         @endforeach
       </table>
     </div>
