@@ -11,6 +11,7 @@ use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
@@ -115,4 +116,20 @@ class ProfileController extends Controller
       'admin' => $admin,
     ]);
   }
+  //管理者がアカウント更新するときのコード
+  public function adupdate(User $user, Request $request): RedirectResponse
+  {
+    $inputs = $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'email' => [
+        'required',
+        'string',
+        'lowercase',
+        'email',
+        'max:255', Rule::unique(User::class)->ignore($user)],
+      'avatar' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:1024']
+    ]);
+
+    
+  
 }
