@@ -105,4 +105,14 @@ class ProfileController extends Controller
 
     return Redirect::to('/');
   }
+  // 管理者用のユーザーアカウント表示用のコード
+  public function adedit(User $user)
+  {
+    $admin = true;
+
+    return view('profile.edit', [
+      'user' => $user,
+      'admin' => $admin,
+    ]);
+  }
 }
