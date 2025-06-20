@@ -10,28 +10,17 @@ phpMyAdmin:：http://localhost:8080/
 
 ## 機能一覧
 
-会員登録、メール 📨 認証、ログイン、ログアウト、お問い合わせ機能、お問い合わせの自動送信機能、投稿機能、いいね機能、アバター画像の設置・修正
+会員登録、メール 📨 認証、ログイン、ログアウト、お問い合わせ機能、お問い合わせの自動送信機能、投稿機能、いいね機能、アバター画像の設置・修正、管理者機能
 
 ## 使用技術（実行環境）
 
 Laravel 11.x、PHP 8.2.10 、docker、Larave-Sail、laravel-Breeze、
 
-## Laravel Sponsors
+## その他
+###　管理者
+ユーザーid:2 　　名前：花子　 メール：hanako@example.com
+###　一般ユーザー
+id:1 名前：テスト　テスト　メール：test@example.com
 
-## Laravel Sponsors
-
-## Laravel Sponsors
-
-### Premium Partners
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-## License
+###　パスワード
+管理者も一般ユーザーも「１」が８個
