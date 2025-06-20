@@ -72,7 +72,8 @@ class ProfileController extends Controller
       $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
       // 保存先は "storage/app/public/avatar/xxx.png" になる
-      $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
+      // 使用していない $path 変数を削除⇓
+      // $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
       // ブラウザからは "storage/avatar/xxx.png" でアクセス可能
       $user->avatar = 'storage/avatar/' . $avatar;
 
@@ -126,10 +127,47 @@ class ProfileController extends Controller
         'string',
         'lowercase',
         'email',
-        'max:255', Rule::unique(User::class)->ignore($user)],
+        'max:255',
+        Rule::unique(User::class)->ignore($user)
+      ],
       'avatar' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:1024']
     ]);
 
-    
-  
+    // アバター画像の保存と古いアバターの削除
+    if ($request->hasFile('avatar')) {
+      // 古いアバターのパスを、アップロード前の元の値で取得
+      $oldAvatar = $user->getOriginal('avatar');
+
+      // 古いアバターが登録されていて、かつデフォルト画像でない場合のみ削除
+      if ($oldAvatar && $oldAvatar !== 'storage/avatar/user_default.jpg') {
+        // 「storage/」を除いて、publicディスク上のパス（例："avatar/xxx.png"）に変換
+        $oldAvatarPath = str_replace('storage/', '', $oldAvatar);
+        Log::debug('削除予定のアバターのパス: ' . $oldAvatarPath);
+
+        if (Storage::disk('public')->exists($oldAvatarPath)) {
+          Storage::disk('public')->delete($oldAvatarPath);
+          Log::debug('古いアバターを削除しました。');
+        } else {
+          Log::debug('古いアバターが見つかりませんでした: ' . $oldAvatarPath);
+        }
+      }
+
+      // 新しいアバターを保存
+      $name = $request->file('avatar')->getClientOriginalName();
+      $avatar = date('Ymd_His') . '_' . $name;
+      // 保存先は "storage/app/public/avatar/xxx.png" になる
+      // $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
+      // ブラウザからは "storage/avatar/xxx.png" でアクセス可能
+      $user->avatar = 'storage/avatar/' . $avatar;
+
+      Log::debug('新しいアバターを保存しました: ' . $user->avatar);
+    }
+
+    // 変更を保存
+    $user->name = $inputs['name'];
+    $user->email = $inputs['email'];
+    $user->save();
+
+    return Redirect::route('profile.edit')->with('status', 'プロフィールが更新されました。');
+  }
 }
