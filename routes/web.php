@@ -5,15 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\RoleController;
 
 // topページ　誰でも見ることができる（会員でなくても　ログインしていなくても）
 Route::get('/', function () {
   return view('welcome');
 })->name('top');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 // お問い合わせ　誰でも見ることができる（会員でなくても　ログインしていなくても）
 Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
@@ -48,8 +45,10 @@ Route::middleware(['verified'])->group(function () {
       Route::get('/profile/adedit/{user}', [ProfileController::class, 'adedit'])->name('profile.adedit');
       
       Route::patch('/profile/adupdate/{user}', [ProfileController::class, 'adupdate'])->name('profile.adupdate');
-    }
-  );
+
+      Route::patch('roles/{user}/attach', [RoleController::class, 'attach'])->name('role.attach');
+      Route::patch('roles/{user}/detach', [RoleController::class, 'detach'])->name('role.detach');
+    });
 });
 
 require __DIR__ . '/auth.php';
