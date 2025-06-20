@@ -72,8 +72,7 @@ class ProfileController extends Controller
       $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
       // 保存先は "storage/app/public/avatar/xxx.png" になる
-      // 使用していない $path 変数を削除⇓
-      // $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
+      $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
       // ブラウザからは "storage/avatar/xxx.png" でアクセス可能
       $user->avatar = 'storage/avatar/' . $avatar;
 
@@ -156,7 +155,7 @@ class ProfileController extends Controller
       $name = $request->file('avatar')->getClientOriginalName();
       $avatar = date('Ymd_His') . '_' . $name;
       // 保存先は "storage/app/public/avatar/xxx.png" になる
-      // $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
+      $path = $request->file('avatar')->storeAs('avatar', $avatar, 'public');
       // ブラウザからは "storage/avatar/xxx.png" でアクセス可能
       $user->avatar = 'storage/avatar/' . $avatar;
 
@@ -168,6 +167,6 @@ class ProfileController extends Controller
     $user->email = $inputs['email'];
     $user->save();
 
-    return Redirect::route('profile.edit')->with('status', 'プロフィールが更新されました。');
+    return Redirect::route('profile.adedit', compact('user'))->with('status', 'profile-updated');
   }
 }
