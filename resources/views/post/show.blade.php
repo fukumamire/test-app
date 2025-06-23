@@ -45,7 +45,7 @@
               <img src="{{ asset('storage/images/'.$post->image)}}" class="mx-auto" style="height:300px;">
             @endif
             <div class="text-sm font-semibold flex flex-row-reverse">
-              <p> {{ $post->user->name }} • {{$post->created_at->diffForHumans()}}</p>
+              <p> {{ $post->user->name??'削除されたユーザー' }} • {{$post->created_at->diffForHumans()}}</p>
             </div>
           </div>
           {{-- コメント表示 --}}
@@ -53,7 +53,7 @@
           <div class="bg-lime-100 w-full  rounded-2xl px-10 py-2 shadow-lg mt-8 whitespace-pre-line">
             {{$comment->body}}
             <div class="text-sm font-semibold flex flex-row-reverse">
-              <p> 投稿者：{{ $comment->user->name }} • {{$comment->created_at->diffForHumans()}}</p>
+              <p> 投稿者：{{ $comment->user->name??'削除されたユーザー }} • {{$comment->created_at->diffForHumans()}}</p>
             </div>
           </div>
           @endforeach
