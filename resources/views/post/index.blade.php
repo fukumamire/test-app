@@ -37,7 +37,8 @@
                 @else
                     <div class="rounded-full w-12 h-12 bg-gray-300"></div>
                 @endif
-            </div>
+              </div>
+              
               <h1 class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-4">
                 <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
               </h1>
