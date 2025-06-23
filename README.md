@@ -1,7 +1,10 @@
 # ペット（動物）の魅力等をつぶやく掲示板を作成
 
-新規登録画面
 ![Image](https://github.com/user-attachments/assets/6c49baf3-3bd1-4a68-a97d-f7304b76b749)
+
+新規登録画面
+![Image](https://github.com/user-attachments/assets/30775281-bc4d-4e1e-b4bf-ed79977fca1e)
+
 
 ログイン画面
 ![Image](https://github.com/user-attachments/assets/0f1449b5-c922-45e6-858b-b391f1e38589)
