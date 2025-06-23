@@ -172,4 +172,35 @@ class ProfileController extends Controller
 
     return Redirect::route('profile.adedit', compact('user'))->with('status', 'profile-updated');
   }
+
+  // public function addestroy(User $user)
+  // {
+  //   if ($user->avatar !== 'user_default.jpg') {
+  //     $oldavatar = 'public/avatar/' . $user->avatar;
+  //     Storage::delete($oldavatar);
+  //   }
+  //   $user->roles()->detach();
+  //   $user->delete();
+  //   return back()->with('message', 'ユーザーを削除しました');
+  // }
+
+
+  public function addestroy(User $user)
+  {
+    // 'storage/avatar/xxx.jpg' → 'avatar/xxx.jpg' に変換
+    $avatarPath = str_replace('storage/', '', $user->avatar);
+
+    // デフォルト画像でない場合は削除
+    if ($user->avatar && $avatarPath !== 'avatar/user_default.jpg') {
+      if (Storage::disk('public')->exists($avatarPath)) {
+        Storage::disk('public')->delete($avatarPath);
+      }
+    }
+
+    // 役割を解除して、ユーザー削除
+    $user->roles()->detach();
+    $user->delete();
+
+    return back()->with('message', 'ユーザーを削除しました');
+  }
 }
