@@ -38,23 +38,6 @@
                     <div class="rounded-full w-12 h-12 bg-gray-300"></div>
                 @endif
             </div>
-              {{-- <div class="rounded-full w-12 h-12">
-                @php
-                  // アバターのパスを正しく設定する
-                  if (isset($post->user->avatar) && str_starts_with($post->user->avatar, 'storage/avatar/')) {
-                      $avatarPath = substr($post->user->avatar, strlen('storage/avatar/'));
-                  } else {
-                      $avatarPath = $post->user->avatar ? 'avatar/' . $post->user->avatar : 'avatar/user_default.jpg';
-                  }
-                  Log::debug('Corrected Avatar path: ' . $avatarPath);
-                @endphp
-                
-                @if (file_exists(public_path('storage/avatar/' . $avatarPath)))
-                  <img src="{{ asset('storage/avatar/' . $avatarPath) }}" alt="avatar" class="avatar">
-                @else
-                  <img src="{{ asset('storage/avatar/user_default.jpg') }}" alt="avatar" class="avatar">
-                @endif
-              </div> --}}
               <h1 class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer float-left pt-4">
                 <a href="{{route('post.show', $post)}}">{{ $post->title }}</a>
               </h1>
