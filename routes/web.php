@@ -36,7 +36,7 @@ Route::middleware(['verified'])->group(function () {
 
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-  Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+  // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
   //admin権限がある場合
   Route::middleware(['can:admin'])->group(function () {
@@ -45,7 +45,7 @@ Route::middleware(['verified'])->group(function () {
       Route::get('/profile/adedit/{user}', [ProfileController::class, 'adedit'])->name('profile.adedit');
       
       Route::patch('/profile/adupdate/{user}', [ProfileController::class, 'adupdate'])->name('profile.adupdate');
-      
+
       Route::delete('profile/{user}', [ProfileController::class, 'addestroy'])->name('profile.addestroy');
       Route::patch('roles/{user}/attach', [RoleController::class, 'attach'])->name('role.attach');
       Route::patch('roles/{user}/detach', [RoleController::class, 'detach'])->name('role.detach');
