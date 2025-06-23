@@ -41,6 +41,10 @@ phpMyAdmin:：http://localhost:8080/
 
 Laravel 11.x、PHP 8.2.10 、docker、Larave-Sail、laravel-Breeze、MySQL
 
+## ER 図
+
+![Image](https://github.com/user-attachments/assets/51fdf3a5-6f84-4ac6-8a0f-2d4b2782253b)
+
 ## テーブル設定
 
 ###　 users テーブル
