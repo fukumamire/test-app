@@ -107,6 +107,11 @@ DB_PASSWORD=password
 npm run dev
 ```
 
+マイグレーションの実行 
+```
+Sail artisan migrate
+```
+
 
 ## テーブル設定
 
