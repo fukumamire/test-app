@@ -102,6 +102,12 @@ DB_USERNAME=sail
 DB_PASSWORD=password
 ```
 
+※作業をしていてブラウザで確認した際ロゴなど表示が大きくなる場合
+```
+npm run dev
+```
+
+
 ## テーブル設定
 
 ###　 users テーブル
