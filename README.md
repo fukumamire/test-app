@@ -6,7 +6,6 @@
 
 ![Image](https://github.com/user-attachments/assets/30775281-bc4d-4e1e-b4bf-ed79977fca1e)
 
-
 ログイン画面
 
 ![Image](https://github.com/user-attachments/assets/0f1449b5-c922-45e6-858b-b391f1e38589)
@@ -35,7 +34,7 @@
 
 ![Image](https://github.com/user-attachments/assets/1a40e8eb-3d3c-4ac5-8f6b-904ede7e1c4c)
 
-ユーザー一覧　
+ユーザー一覧
 
 ![Image](https://github.com/user-attachments/assets/c763d6ef-95c2-4be2-87b9-b30cddb910fb)
 
@@ -60,6 +59,48 @@ Laravel 11.x、PHP 8.2.10 、docker、Larave-Sail、laravel-Breeze、MySQL
 ## ER 図
 
 ![Image](https://github.com/user-attachments/assets/51fdf3a5-6f84-4ac6-8a0f-2d4b2782253b)
+
+# 環境構築
+
+## Laravel と　Docker　環境構築
+
+※Docker デスクトップを起動しておく
+
+Laravel 11 を指定してプロジェクトを作成
+
+```
+composer create-project laravel/laravel:^11.0 test-app（←test-appは任意のプロジェクトのディレクトリ名）
+```
+
+Laravel Sail を追加
+
+プロジェクトに移動してから Sail をインストール
+
+```
+composer require laravel/sail --dev
+```
+
+Sail のセットアップ（サービス構成を選択できます）mysqlを選択
+
+```
+php artisan sail:install
+
+```
+Docker を起動
+```
+./vendor/bin/sail up
+
+```
+
+必要に応じて.envファイルを作成し作成した際は以下の環境変数を追加
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=test_app
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
 
 ## テーブル設定
 
