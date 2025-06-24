@@ -109,7 +109,7 @@ npm run dev
 
 マイグレーションの実行 
 ```
-Sail artisan migrate
+sail artisan migrate
 ```
 
 
